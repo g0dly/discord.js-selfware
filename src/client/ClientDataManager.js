@@ -32,7 +32,9 @@ class ClientDataManager {
        * @param {Guild} guild The created guild
        */
       if (this.client.options.fetchAllMembers) {
-        guild.fetchMembers().then(() => { this.client.emit(Constants.Events.GUILD_CREATE, guild); });
+        guild.fetchMembers().then(() => {
+          this.client.emit(Constants.Events.GUILD_CREATE, guild);
+        });
       } else {
         this.client.emit(Constants.Events.GUILD_CREATE, guild);
       }
@@ -78,6 +80,7 @@ class ClientDataManager {
             break;
         }
 
+        if (!channel) return;
         guild.channels.set(channel.id, channel);
       }
     }
