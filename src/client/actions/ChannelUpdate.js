@@ -38,6 +38,8 @@ class ChannelUpdateAction extends Action {
             break;
         }
 
+        if (!channelClass) return;
+
         // Create the new channel instance and copy over cached data
         const newChannel = new channelClass(channel.guild, data);
         if (channel.messages && newChannel.messages) {
