@@ -44,6 +44,7 @@ class ClientDataManager {
   }
 
   newUser(data, cache = true) {
+    if (!data.id) return;
     if (this.client.users.has(data.id)) return this.client.users.get(data.id);
     const user = new User(this.client, data);
     if (cache) this.client.users.set(user.id, user);
