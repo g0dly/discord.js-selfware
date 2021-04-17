@@ -38,8 +38,9 @@ class ReadyHandler extends AbstractHandler {
     if (data.notes) {
       for (const user of Object.keys(data.notes)) {
         let note = data.notes[user];
-        if (!note) continue;
-        if (!note.length) note = null;
+        if (note) {
+          if (!note.length) note = null;
+        }
 
         client.user.notes.set(user, note);
       }
