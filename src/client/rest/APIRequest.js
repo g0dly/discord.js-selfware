@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+const fetch = require('snekfetch');
 const Constants = require('../../util/Constants');
 
 class APIRequest {
