@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const snekfetch = require('snekfetch');
+const fetch = require('node-fetch');
 
 const Constants = require('../util/Constants');
 const convertToBuffer = require('../util/Util').convertToBuffer;
@@ -110,11 +110,11 @@ class ClientDataResolver {
    */
 
   /**
-    * Resolves a RoleResolvable to a Role object.
-    * @param {GuildResolvable} guild The guild that this role is part of
-    * @param {RoleResolvable} role The role resolvable to resolve
-    * @returns {?Role}
-    */
+   * Resolves a RoleResolvable to a Role object.
+   * @param {GuildResolvable} guild The guild that this role is part of
+   * @param {RoleResolvable} role The role resolvable to resolve
+   * @returns {?Role}
+   */
   resolveRole(guild, role) {
     if (role instanceof Role) return role;
     guild = this.resolveGuild(guild);
@@ -196,7 +196,6 @@ class ClientDataResolver {
     return String(data);
   }
 
-
   /**
    * Resolves a Base64Resolvable, a string, or a BufferResolvable to a Base 64 image.
    * @param {BufferResolvable|Base64Resolvable} image The image to be resolved
@@ -228,31 +227,31 @@ class ClientDataResolver {
   }
 
   /**
-    * Data that can be resolved to give a Buffer. This can be:
-    * * A Buffer
-    * * The path to a local file
-    * * A URL
-    * * A Stream
-    * @typedef {string|Buffer} BufferResolvable
-    */
+   * Data that can be resolved to give a Buffer. This can be:
+   * * A Buffer
+   * * The path to a local file
+   * * A URL
+   * * A Stream
+   * @typedef {string|Buffer} BufferResolvable
+   */
 
   /**
-    * @external Stream
-    * @see {@link https://nodejs.org/api/stream.html}
-    */
+   * @external Stream
+   * @see {@link https://nodejs.org/api/stream.html}
+   */
 
   /**
-    * Resolves a BufferResolvable to a Buffer.
-    * @param {BufferResolvable|Stream} resource The buffer or stream resolvable to resolve
-    * @returns {Promise<Buffer>}
-    */
+   * Resolves a BufferResolvable to a Buffer.
+   * @param {BufferResolvable|Stream} resource The buffer or stream resolvable to resolve
+   * @returns {Promise<Buffer>}
+   */
   resolveFile(resource) {
     if (resource instanceof Buffer) return Promise.resolve(resource);
     if (this.client.browser && resource instanceof ArrayBuffer) return Promise.resolve(convertToBuffer(resource));
 
     if (typeof resource === 'string') {
       if (/^https?:\/\//.test(resource)) {
-        return snekfetch.get(resource).then(res => res.body instanceof Buffer ? res.body : Buffer.from(res.text));
+        return fetch.get(resource).then((res) => (res.body instanceof Buffer ? res.body : Buffer.from(res.text)));
       }
       return new Promise((resolve, reject) => {
         const file = path.resolve(resource);
@@ -270,7 +269,7 @@ class ClientDataResolver {
       return new Promise((resolve, reject) => {
         const buffers = [];
         resource.once('error', reject);
-        resource.on('data', data => buffers.push(data));
+        resource.on('data', (data) => buffers.push(data));
         resource.once('end', () => resolve(Buffer.concat(buffers)));
       });
     }
@@ -348,14 +347,14 @@ class ClientDataResolver {
    */
   static resolveColor(color) {
     if (typeof color === 'string') {
-      if (color === 'RANDOM') return Math.floor(Math.random() * (0xFFFFFF + 1));
+      if (color === 'RANDOM') return Math.floor(Math.random() * (0xffffff + 1));
       if (color === 'DEFAULT') return 0;
       color = Constants.Colors[color] || parseInt(color.replace('#', ''), 16);
     } else if (color instanceof Array) {
       color = (color[0] << 16) + (color[1] << 8) + color[2];
     }
 
-    if (color < 0 || color > 0xFFFFFF) {
+    if (color < 0 || color > 0xffffff) {
       throw new RangeError('Color must be within the range 0 - 16777215 (0xFFFFFF).');
     } else if (color && isNaN(color)) {
       throw new TypeError('Unable to convert color to a number.');
