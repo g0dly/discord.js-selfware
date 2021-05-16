@@ -12,6 +12,7 @@ module.exports = {
   BitField: require('./util/BitField'),
   Collection: require('./util/Collection'),
   Constants: require('./util/Constants'),
+  DataResolver: require('./util/DataResolver'),
   DiscordAPIError: require('./client/rest/DiscordAPIError'),
   EvaluatedPermissions: require('./util/Permissions'),
   MessageFlags: require('./util/MessageFlags'),
