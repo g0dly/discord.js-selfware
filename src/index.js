@@ -30,6 +30,7 @@ module.exports = {
   splitMessage: Util.splitMessage,
 
   // Structures
+  APIMessage: require('./structures/APIMessage'),
   Attachment: require('./structures/Attachment'),
   CategoryChannel: require('./structures/CategoryChannel'),
   Channel: require('./structures/Channel'),
