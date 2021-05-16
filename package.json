@@ -1,7 +1,7 @@
 {
-  "name": "discord.js-selfware",
+  "name": "discord.js",
   "version": "11.6.4",
-  "description": "The official Javascript library v11 for Discord's API forked and edited for the use of selfbots.",
+  "description": "A powerful library for interacting with the Discord API",
   "main": "./src/index",
   "types": "./typings/index.d.ts",
   "scripts": {
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/g0dly/discord.js-selfware.git"
+    "url": "git+https://github.com/discordjs/discord.js.git"
   },
   "keywords": [
     "discord",
@@ -25,11 +25,17 @@
     "node",
     "discordapp"
   ],
-  "author": "g0dly",
+  "author": "Amish Shah <amishshah.2k@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/discordjs/discord.js/issues"
+  },
+  "homepage": "https://github.com/discordjs/discord.js#readme",
+  "runkitExampleFilename": "./docs/examples/ping.js",
   "dependencies": {
     "long": "^4.0.0",
     "prism-media": "^0.0.4",
-    "snekfetch": "^4.0.4",
+    "snekfetch": "^3.6.4",
     "tweetnacl": "^1.0.0",
     "ws": "^6.0.0"
   },

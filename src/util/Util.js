@@ -1,4 +1,4 @@
-const fetch = require('snekfetch');
+const snekfetch = require('snekfetch');
 const Constants = require('./Constants');
 const ConstantsHttp = Constants.DefaultOptions.http;
 
@@ -19,7 +19,7 @@ class Util {
   static splitMessage(text, { maxLength = 1950, char = '\n', prepend = '', append = '' } = {}) {
     if (text.length <= maxLength) return text;
     const splitText = text.split(char);
-    if (splitText.some((chunk) => chunk.length > maxLength)) {
+    if (splitText.some(chunk => chunk.length > maxLength)) {
       throw new Error('Message exceeds the max length and contains no split characters.');
     }
     const messages = [''];
@@ -76,8 +76,7 @@ class Util {
   static fetchRecommendedShards(token, guildsPerShard = 1000) {
     return new Promise((resolve, reject) => {
       if (!token) throw new Error('A token must be provided.');
-      fetch
-        .get(`${ConstantsHttp.host}/api/v${ConstantsHttp.version}${Constants.Endpoints.gateway.bot}`)
+      snekfetch.get(`${ConstantsHttp.host}/api/v${ConstantsHttp.version}${Constants.Endpoints.gateway.bot}`)
         .set('Authorization', `Bot ${token.replace(/^Bot\s*/i, '')}`)
         .end((err, res) => {
           if (err) reject(err);
@@ -117,7 +116,7 @@ class Util {
     const setA = new Set(a);
     const setB = new Set(b);
 
-    return a.every((e) => setB.has(e)) && b.every((e) => setA.has(e));
+    return a.every(e => setB.has(e)) && b.every(e => setA.has(e));
   }
 
   /**
@@ -230,7 +229,7 @@ class Util {
    * @private
    */
   static delayFor(ms) {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       setTimeout(resolve, ms);
     });
   }
