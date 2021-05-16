@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+const fetch = require('snekfetch');
 const Constants = require('./Constants');
 const ConstantsHttp = Constants.DefaultOptions.http;
 

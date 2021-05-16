@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const fetch = require('node-fetch');
+const fetch = require('snekfetch');
 
 const Constants = require('../util/Constants');
 const convertToBuffer = require('../util/Util').convertToBuffer;
